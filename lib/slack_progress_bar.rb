@@ -59,13 +59,11 @@ class SlackProgressBar
   end
 
   def clear
-    self.progress = MIN_PROGRESS
-    self.progress_text = ''
+    update(progress: MIN_PROGRESS, progress_text: '')
   end
 
   def finish
-    self.progress = MAX_PROGRESS
-    self.progress_text = "Finished in #{formatted_elapsed_time}"
+    update(progress: MAX_PROGRESS, progress_text: "Finished in #{formatted_elapsed_time}")
   end
 
   def finished?

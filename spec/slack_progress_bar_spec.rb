@@ -60,7 +60,9 @@ describe SlackProgressBar do
 
   describe '.finish' do
     it 'should set progress to 100' do
-      expect { @progress_bar.finish }.to change { @progress_bar.progress }.from(0).to(100)
+      expect { @progress_bar.finish }
+        .to change { @progress_bar.progress }.from(0).to(100)
+        .and change { @progress_bar.progress_text }
     end
   end
 
