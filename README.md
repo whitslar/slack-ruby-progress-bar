@@ -1,8 +1,9 @@
 # SlackProgressBar
 
-A Slack progress bar for Ruby.
+Slack progress bars for Ruby.
 
-Inspired by https://github.com/bcicen/slack-progress
+
+Inspired by: https://github.com/bcicen/slack-progress
 
 ## Installation
 

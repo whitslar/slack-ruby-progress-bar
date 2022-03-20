@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matt Whitslar"]
   spec.email         = ["matt.whitslar@gmail.com"]
 
-  spec.summary       = "Create Progress Bars on Slack"
+  spec.summary       = "Slack progress bars for Ruby."
   spec.homepage      = "https://github.com/whitslar/slack_progress_bar"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/whitslar/slack_progress_bar"
