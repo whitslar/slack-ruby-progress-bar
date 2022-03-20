@@ -23,7 +23,7 @@ class SlackProgressBar
   attr_reader :progress, :progress_text
 
   def initialize(channel:, username: nil, icon_emoji: nil, icon_url: nil, slack_token: nil, show_percent: true, bar_color: :green)
-    @slack_client = Slack::Web::Client.new(token: slack_token || ENV.fetch('SLACK_API_TOKEN'))
+    @slack_client = Slack::Web::Client.new(token: slack_token || ENV.fetch('SLACK_API_TOKEN', ''))
     @progress = MIN_PROGRESS
     @progress_text = ''
     @show_percent = show_percent
@@ -51,11 +51,11 @@ class SlackProgressBar
   end
 
   def increment
-    self.progress += 1
+    update(progress: @progress + 1)
   end
 
   def decrement
-    self.progress -= 1
+    update(progress: @progress - 1)
   end
 
   def clear
@@ -79,7 +79,6 @@ class SlackProgressBar
   end
 
   def rendered_bar
-    # "#{ @bar_character * (@progress / 5.0).ceil }" + bar_emoji + percentage_text
     fill_count = ((@progress / MAX_PROGRESS.to_f) * MAX_PROGRESS).to_i / MAX_BAR_CHARACTERS
     empty_count = MAX_BAR_CHARACTERS - fill_count
 
@@ -93,14 +92,6 @@ class SlackProgressBar
   def bar_segment_empty
     BAR_CHARACTERS[:empty]
   end
-
-  # def bar_emoji
-  #   return '' unless @bar_emoji && @progress < MAX_PROGRESS
-
-  #   " #{@bar_emoji}"
-
-  #   @bar_character = bar_character.encode('utf-8')
-  # end
 
   def percentage_text
     return '' unless @show_percent

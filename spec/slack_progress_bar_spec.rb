@@ -3,6 +3,7 @@
 describe SlackProgressBar do
   before(:each) do
     @progress_bar = SlackProgressBar.new(channel: 'foo', slack_token: 'bar', bar_color: :black)
+    allow(@progress_bar).to receive(:post_to_slack).and_return(nil)
   end
 
   describe 'Default Values' do
@@ -29,7 +30,7 @@ describe SlackProgressBar do
 
     it 'should not affect progress_text' do
       @progress_bar.progress_text = 'foo'
-      expect { @progress_bar.progress = 10 }.to not_change { @progress_bar.progress_text }
+      expect { @progress_bar.progress = 10 }.to not_change(@progress_bar, :progress_text)
     end
   end
 
@@ -41,28 +42,28 @@ describe SlackProgressBar do
 
     it 'should not affect progress' do
       @progress_bar.progress = 10
-      expect { @progress_bar.progress_text = 'foo' }.to not_change { @progress_bar.progress }
+      expect { @progress_bar.progress_text = 'foo' }.to not_change(@progress_bar, :progress)
     end
   end
 
   describe '.increment' do
     it 'should increment progress by 1' do
-      expect { @progress_bar.increment }.to change { @progress_bar.progress }.from(0).to(1)
+      expect { @progress_bar.increment }.to change(@progress_bar, :progress).from(0).to(1)
     end
   end
 
   describe '.decrement' do
     it 'should decrement progress by 1' do
       @progress_bar.progress = 5
-      expect { @progress_bar.decrement }.to change { @progress_bar.progress }.from(5).to(4)
+      expect { @progress_bar.decrement }.to change(@progress_bar, :progress).from(5).to(4)
     end
   end
 
   describe '.finish' do
     it 'should set progress to 100' do
       expect { @progress_bar.finish }
-        .to change { @progress_bar.progress }.from(0).to(100)
-        .and change { @progress_bar.progress_text }
+        .to change(@progress_bar, :progress).from(0).to(100)
+        .and change(@progress_bar, :progress_text)
     end
   end
 
@@ -71,8 +72,8 @@ describe SlackProgressBar do
       @progress_bar.update(progress: 5, progress_text: 'testing')
 
       expect { @progress_bar.clear }
-        .to change { @progress_bar.progress }.from(5).to(0)
-        .and change { @progress_bar.progress_text }.from('testing').to('')
+        .to change(@progress_bar, :progress).from(5).to(0)
+        .and change(@progress_bar, :progress_text).from('testing').to('')
     end
   end
 
