@@ -36,7 +36,8 @@ class SlackRubyProgressBar
     @started_at = Time.now
   end
 
-  def update(progress: @progress, progress_text: @progress_text)
+    @started_at ||= Time.now
+
     @progress = progress
     @progress = MIN_PROGRESS if @progress < MIN_PROGRESS
     @progress = MAX_PROGRESS if @progress > MAX_PROGRESS
@@ -64,6 +65,7 @@ class SlackRubyProgressBar
 
   def finish
     update(progress: MAX_PROGRESS, progress_text: "Finished in #{formatted_elapsed_time}")
+    @started_at = nil
   end
 
   def finished?
@@ -106,7 +108,7 @@ class SlackRubyProgressBar
   end
 
   def elapsed_time
-    Time.now - @started_at
+    Time.now - (@started_at || Time.now)
   end
 
   def formatted_elapsed_time
