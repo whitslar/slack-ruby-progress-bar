@@ -1,6 +1,7 @@
 # SlackRubyProgressBar
+![](https://github.com/whitslar/slack-ruby-progress-bar/blob/master/slack-ruby-progress-bar.gif)
 
-Slack progress bars for Ruby.
+Slack progress bar for Ruby.
 
 
 Inspired by: https://github.com/bcicen/slack-progress
