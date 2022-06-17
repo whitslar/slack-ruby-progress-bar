@@ -33,9 +33,9 @@ class SlackRubyProgressBar
     @icon_emoji = icon_emoji
     @icon_url = icon_url
     @slack_message = nil
-    @started_at = Time.now
   end
 
+  def update(progress: @progress, progress_text: @progress_text, bar_color: @bar_color)
     @started_at ||= Time.now
 
     @progress = progress
@@ -43,6 +43,7 @@ class SlackRubyProgressBar
     @progress = MAX_PROGRESS if @progress > MAX_PROGRESS
 
     @progress_text = progress_text
+    @bar_color = bar_color
 
     post_to_slack
   end
