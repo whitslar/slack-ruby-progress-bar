@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-describe SlackProgressBar do
+describe SlackRubyProgressBar do
   before(:each) do
-    @progress_bar = SlackProgressBar.new(channel: 'foo', slack_token: 'bar', bar_color: :black)
+    @progress_bar = SlackRubyProgressBar.new(channel: 'foo', slack_token: 'bar', bar_color: :black)
     allow(@progress_bar).to receive(:post_to_slack).and_return(nil)
   end
 

@@ -2,7 +2,7 @@
 
 require 'slack-ruby-client'
 
-class SlackProgressBar
+class SlackRubyProgressBar
   MIN_PROGRESS = 0
   MAX_PROGRESS = 100
   MAX_BAR_CHARACTERS = 10
