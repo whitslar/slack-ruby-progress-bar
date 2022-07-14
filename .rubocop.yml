@@ -9,8 +9,14 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
 Layout/LineLength:
-  Max: 130
+  Max: 150
+
+Lint/MissingCopEnableDirective:
+  Enabled: false
 
 Metrics/BlockLength:
   Enabled: false

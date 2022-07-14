@@ -5,8 +5,7 @@ require 'slack-ruby-client'
 class SlackRubyProgressBar
   MIN_PROGRESS = 0
   MAX_PROGRESS = 100
-  MAX_BAR_CHARACTERS = 10
-  BAR_CHARACTER = "\u2588"
+  MAX_BAR_SEGMENTS = 10
 
   BAR_CHARACTERS = {
     empty: "\u{2B1C}",
@@ -20,7 +19,7 @@ class SlackRubyProgressBar
     brown: "\u{1F7EB}"
   }.freeze
 
-  attr_reader :progress, :progress_text
+  attr_reader :progress, :progress_text, :bar_color
 
   def initialize(channel:, username: nil, icon_emoji: nil, icon_url: nil, slack_token: nil, show_percent: true, bar_color: :green)
     @slack_client = Slack::Web::Client.new(token: slack_token || ENV.fetch('SLACK_API_TOKEN', ''))
@@ -81,18 +80,24 @@ class SlackRubyProgressBar
     update(progress_text: progress_text)
   end
 
-  def rendered_bar
-    fill_count = ((@progress / MAX_PROGRESS.to_f) * MAX_PROGRESS).to_i / MAX_BAR_CHARACTERS
-    empty_count = MAX_BAR_CHARACTERS - fill_count
-
-    "#{bar_segment_filled * fill_count}#{bar_segment_empty * empty_count}" + percentage_text
+  def bar_color=(bar_color)
+    update(bar_color: bar_color)
   end
 
-  def bar_segment_filled
+  def rendered_bar
+    num_filled_segments = ((@progress / MAX_PROGRESS.to_f) * MAX_PROGRESS).to_i / MAX_BAR_SEGMENTS
+    num_empty_segments = MAX_BAR_SEGMENTS - num_filled_segments
+
+    "#{filled_segment * num_filled_segments}#{empty_segment * num_empty_segments}" + percentage_text
+  end
+
+  private
+
+  def filled_segment
     BAR_CHARACTERS[@bar_color.to_sym]
   end
 
-  def bar_segment_empty
+  def empty_segment
     BAR_CHARACTERS[:empty]
   end
 
