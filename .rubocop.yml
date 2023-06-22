@@ -1,5 +1,16 @@
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.4
+  NewCops: enable
+
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
+RSpec/NestedGroups:
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
@@ -21,6 +32,9 @@ Lint/MissingCopEnableDirective:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 Metrics/MethodLength:
   Enabled: false
 
@@ -30,5 +44,5 @@ Metrics/ParameterLists:
 Naming/FileName:
   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
